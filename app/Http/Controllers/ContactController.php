@@ -30,9 +30,9 @@ class ContactController extends Controller
     {
         try {
             $contact = new Contact();
-            $route=route('contacts.store');
+            $route = route('contacts.store');
             $method = 'POST';
-            return view('contacts.create', compact('contact','route','method'));
+            return view('contacts.create', compact('contact', 'route', 'method'));
             //code...
         } catch (\Throwable $th) {
             throw $th;
@@ -70,10 +70,10 @@ class ContactController extends Controller
     public function edit(Contact $contact)
     {
         try {
-            
-            $route=route('contacts.update',$contact);
+
+            $route = route('contacts.update', $contact);
             $method = 'PATCH';
-            return view('contacts.edit', compact('contact','route','method'));
+            return view('contacts.edit', compact('contact', 'route', 'method'));
             //code...
         } catch (\Throwable $th) {
             throw $th;
@@ -98,6 +98,11 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        try {
+            $contact->delete();
+            return redirect()->route('contacts.index');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
